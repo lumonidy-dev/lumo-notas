@@ -26,5 +26,7 @@ dist-ssr
 # Firebase files
 firebase.json
 .firebaserc
-firebaseConfig.js
 *.cache
+
+# Env files
+.env
