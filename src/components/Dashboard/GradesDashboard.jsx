@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form } from 'react-router-dom';
 import useGradesController from '../../controllers/grades-controller';
-import Button from '../CheckButton';
 import './GradesDashboard.css';
 
 function GradeCard({ grade, onDelete }) {
@@ -55,7 +54,8 @@ function GradesForm({ onSubmit }) {
             const title = form.elements['title'].value;
             const score = form.elements['score'].value;
 
-            await onSubmit({ title, score });
+            const updatedData = { title, score };
+            await onSubmit(updatedData);
 
             // Limpiar el formulario
             form.reset();
@@ -63,7 +63,8 @@ function GradesForm({ onSubmit }) {
             <input className="grades-form__input" type="text" name="title" placeholder="Título" required />
             <input className="grades-form__input" type="number" name="score" placeholder="Puntuación" required />
             <div className="d-flex flex-row justify-content-center align-items-center gap-sm">
-                <Button text="Agregar" backgroundColor="#007bff" />
+                <button className="" type="submit"> Agregar
+                </button>
             </div>
         </form>
     );

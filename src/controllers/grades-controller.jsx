@@ -27,6 +27,7 @@ export function useGradesController(studentId) {
 
     // Función para agregar una nueva nota
     const addGrade = async (gradeData) => {
+        console.log("Intentando agregar", gradeData, studentId);
         try {
             setLoading(true);
             const success = await createGrade(studentId, gradeData);
