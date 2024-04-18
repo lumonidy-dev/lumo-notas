@@ -27,3 +27,4 @@ dist-ssr
 firebase.json
 .firebaserc
 firebaseConfig.js
+*.cache
