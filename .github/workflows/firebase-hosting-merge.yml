@@ -6,24 +6,14 @@ name: Deploy to Firebase Hosting on merge
       - main
 
 jobs:
-  create_firebase_config_js:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Create firebaseConfig.js
         run: echo "$FIREBASE_CONFIG_JS" > src/firebaseConfig.js
         env:
           FIREBASE_CONFIG_JS: ${{ secrets.FIREBASE_CONFIG_JS }}
-
-      - name: Print firebaseConfig.js
-        run: cat src/firebaseConfig.js
-
-  build_and_deploy:
-    needs: create_firebase_config_js
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
