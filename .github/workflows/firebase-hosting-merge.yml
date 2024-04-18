@@ -15,7 +15,7 @@ jobs:
       - name: Create firebaseConfig.js
         run: |
           echo "$FIREBASE_CONFIG_JS" > src/firebaseConfig.js
-          cat src/firebaseConfig.js  # Muestra el contenido de firebaseConfig.js para depuración
+        working-directory: ${{ github.workspace }}
         env:
           FIREBASE_CONFIG_JS: ${{ secrets.FIREBASE_CONFIG_JS }}
 
