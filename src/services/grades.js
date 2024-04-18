@@ -1,4 +1,4 @@
-import { db } from "../firebaseConfig";
+import { db } from "../firebaseConfig.js";
 import { collection, doc, getDocs, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
 
 const gradesCollection = collection(db, "grades");

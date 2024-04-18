@@ -1,4 +1,4 @@
-import { db } from "../firebaseConfig";
+import { db } from "../firebaseConfig.js";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 import { collection, doc, getDocs, setDoc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
