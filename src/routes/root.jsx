@@ -8,7 +8,7 @@ import {
     useSubmit,
 } from "react-router-dom";
 import { useEffect } from "react";
-import { getUsers, createUser } from "../services/users";
+import { getUsers, createUser } from "../services/users-service";
 
 export async function loader({ request }) {
     const url = new URL(request.url);
@@ -18,13 +18,14 @@ export async function loader({ request }) {
 }
 
 export async function action() {
-    const contact = await createUser();
-    return redirect(`/users/${contact.id}/edit`);
+    const user = await createUser();
+    return redirect(`/users/${user.id}/edit`);
 }
 
 export default function Root() {
     const { users, q } = useLoaderData();
     const navigation = useNavigation();
+    const isSubmitting = navigation.state === "submitting";
     const submit = useSubmit();
 
     const searching =
@@ -68,16 +69,18 @@ export default function Root() {
                         ></div>
                     </Form>
                     <Form method="post">
-                        <button type="submit">New</button>
+                        <button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? 'Creating...' : 'New'}
+                        </button>
                     </Form>
                 </div>
                 <nav>
                     {users.length ? (
                         <ul>
-                            {users.map((contact) => (
-                                <li key={contact.id}>
+                            {users.map((user) => (
+                                <li key={user.id}>
                                     <NavLink
-                                        to={`users/${contact.id}`}
+                                        to={`users/${user.id}`}
                                         className={({ isActive, isPending }) =>
                                             isActive
                                                 ? "active"
@@ -85,14 +88,14 @@ export default function Root() {
                                                     ? "pending"
                                                     : ""
                                         }
-                                    >                                        {contact.first || contact.last ? (
+                                    >                                        {user.first || user.last ? (
                                         <>
-                                            {contact.first} {contact.last}
+                                            {user.first} {user.last}
                                         </>
                                     ) : (
                                         <i>No Name</i>
                                     )}{" "}
-                                        {contact.favorite && <span>★</span>}
+                                        {user.favorite && <span>★</span>}
                                     </NavLink>
                                 </li>
                             ))}

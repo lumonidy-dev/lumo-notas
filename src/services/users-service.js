@@ -40,7 +40,7 @@ export async function createUser() {
 
         return { id, ...userData };
     } catch (error) {
-        console.error("Error creating contact: ", error);
+        console.error("Error creating user: ", error);
         return null;
     }
 }
@@ -48,16 +48,16 @@ export async function createUser() {
 
 export async function getUser(id) {
     try {
-        const contactDoc = doc(usersCollection, id);
-        const contactSnapshot = await getDoc(contactDoc); // Using getDoc instead of getDocs to retrieve a single document
-        if (contactSnapshot.exists()) { // Checking if the document exists
-            const contactData = contactSnapshot.data(); // Retrieving the data from the snapshot
-            return { id: contactSnapshot.id, ...contactData }; // Returning the contact data with the ID
+        const userDoc = doc(usersCollection, id);
+        const userSnapshot = await getDoc(userDoc); // Using getDoc instead of getDocs to retrieve a single document
+        if (userSnapshot.exists()) { // Checking if the document exists
+            const userData = userSnapshot.data(); // Retrieving the data from the snapshot
+            return { id: userSnapshot.id, ...userData }; // Returning the user data with the ID
         } else {
-            return null; // Returning null if the contact does not exist
+            return null; // Returning null if the user does not exist
         }
     } catch (error) {
-        console.error("Error getting contact: ", error);
+        console.error("Error getting user: ", error);
         return null; // Returning null if an error occurs
     }
 }
@@ -65,20 +65,20 @@ export async function getUser(id) {
 
 export async function updateUser(id, updates) {
     try {
-        await updateDoc(doc(usersCollection, id), updates); // Updating an existing contact document
+        await updateDoc(doc(usersCollection, id), updates); // Updating an existing user document
         return { id, ...updates };
     } catch (error) {
-        console.error("Error updating contact: ", error);
+        console.error("Error updating user: ", error);
         return null; // Returning null if an error occurs
     }
 }
 
 export async function deleteUser(id) {
     try {
-        await deleteDoc(doc(usersCollection, id)); // Deleting a contact document
+        await deleteDoc(doc(usersCollection, id)); // Deleting a user document
         return true;
     } catch (error) {
-        console.error("Error deleting contact: ", error);
+        console.error("Error deleting user: ", error);
         return false; // Returning false if an error occurs
     }
 }

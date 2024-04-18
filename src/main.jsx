@@ -11,8 +11,8 @@ import Root, {
 } from './routes/root';
 import ErrorPage from './error-page';
 import User, {
-  loader as contactLoader,
-  action as contactAction,
+  loader as userLoader,
+  action as userAction,
 } from './routes/user';
 import EditUser, {
   action as editAction,
@@ -20,7 +20,7 @@ import EditUser, {
 import { action as destroyAction } from './routes/destroy';
 import Index from './routes/index';
 import './index.css';
-
+import './global.css';
 
 
 // Configurar el enrutador
@@ -40,19 +40,19 @@ const router = createBrowserRouter([
             element: <Index />,
           },
           {
-            path: "users/:contactId",
+            path: "users/:userId",
             element: <User />,
-            loader: contactLoader,
-            action: contactAction,
+            loader: userLoader,
+            action: userAction,
           },
           {
-            path: "users/:contactId/edit",
+            path: "users/:userId/edit",
             element: <EditUser />,
-            loader: contactLoader,
+            loader: userLoader,
             action: editAction,
           },
           {
-            path: "users/:contactId/destroy",
+            path: "users/:userId/destroy",
             action: destroyAction,
             errorElement: <div> Oops! There was an error. </div>,
           },

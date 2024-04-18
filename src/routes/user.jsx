@@ -3,95 +3,94 @@ import {
     useLoaderData,
     useFetcher,
 } from "react-router-dom";
-import { getUser, updateUser } from "../services/users";
-import { getStudentGrades } from "../services/grades";
+import { getUser, updateUser } from "../services/users-service";
 import GradesDashboard from "../components/Dashboard/GradesDashboard";
 
 
 export async function loader({ params }) {
-    const contact = await getUser(params.contactId);
-    if (!contact) {
+    const user = await getUser(params.userId);
+    if (!user) {
         throw new Response("", {
             status: 404,
-            statusText: "Not Found",
+            statusText: "NO hay usuario disponible",
         });
     }
-    // Obtener las notas del estudiante
-    const grades = await getStudentGrades(params.contactId);
-    return { contact, grades };
+    return { user };
 }
 
 export async function action({ request, params }) {
     let formData = await request.formData();
-    return updateUser(params.contactId, {
+    return updateUser(params.userId, {
         favorite: formData.get("favorite") === "true",
     })
 }
 export default function User() {
-    const { contact } = useLoaderData();
+    const { user } = useLoaderData();
     return (
-        <div id="contact">
-            <div>
-                <img
-                    key={contact.avatar}
-                    src={contact.avatar || null}
-                />
-            </div>
-
-            <div>
-                <h1>
-                    {contact.first || contact.last ? (
-                        <>
-                            {contact.first} {contact.last}
-                        </>
-                    ) : (
-                        <i>No Name</i>
-                    )}{" "}
-                    <Favorite contact={contact} />
-                </h1>
-
-                {contact.twitter && (
-                    <p>
-                        <a
-                            target="_blank"
-                            href={`https://twitter.com/${contact.twitter}`}
-                        >
-                            {contact.twitter}
-                        </a>
-                    </p>
-                )}
-
-                {contact.notes && <p>{contact.notes}</p>}
+        <>
+            <div id="user">
+                <div>
+                    <img
+                        key={user.avatar}
+                        src={user.avatar || null}
+                    />
+                </div>
 
                 <div>
-                    <Form action="edit">
-                        <button type="submit">Edit</button>
-                    </Form>
-                    <Form
-                        method="post"
-                        action="destroy"
-                        onSubmit={(event) => {
-                            if (
-                                !confirm(
-                                    "Please confirm you want to delete this record."
-                                )
-                            ) {
-                                event.preventDefault();
-                            }
-                        }}
-                    >
-                        <button type="submit">Delete</button>
-                    </Form>
+                    <h1>
+                        {user.first || user.last ? (
+                            <>
+                                {user.first} {user.last}
+                            </>
+                        ) : (
+                            <i>No Name</i>
+                        )}{" "}
+                        <Favorite user={user} />
+                    </h1>
+
+                    {user.twitter && (
+                        <p>
+                            <a
+                                target="_blank"
+                                href={`https://twitter.com/${user.twitter}`}
+                            >
+                                {user.twitter}
+                            </a>
+                        </p>
+                    )}
+
+                    {user.notes && <p>{user.notes}</p>}
+
+                    <div>
+                        <Form action="edit">
+                            <button type="submit">Edit</button>
+                        </Form>
+                        <Form
+                            method="post"
+                            action="destroy"
+                            onSubmit={(event) => {
+                                if (
+                                    !confirm(
+                                        "Please confirm you want to delete this record."
+                                    )
+                                ) {
+                                    event.preventDefault();
+                                }
+                            }}
+                        >
+                            <button type="submit">Delete</button>
+                        </Form>
+                    </div>
                 </div>
             </div>
-            <GradesDashboard grades={grades} />
-        </div>
+            <GradesDashboard studentId={user.id} />
+        </>
     );
 }
 
-function Favorite({ contact }) {
+function Favorite({ user }) {
     const fetcher = useFetcher();
-    let favorite = contact.favorite;
+    let favorite = user.favorite;
 
     if (fetcher.formData) {
         favorite = fetcher.formData.get("favorite") === "true";

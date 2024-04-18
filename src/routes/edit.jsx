@@ -6,21 +6,21 @@ import {
 
 } from "react-router-dom";
 
-import { updateUser } from "../services/users";
+import { updateUser } from "../services/users-service";
 
 export async function action({ request, params }) {
     const formData = await request.formData();
     const updates = Object.fromEntries(formData);
-    await updateUser(params.contactId, updates);
-    return redirect(`/users/${params.contactId}`);
+    await updateUser(params.userId, updates);
+    return redirect(`/users/${params.userId}`);
 }
 
 export default function EditUser() {
-    const { contact } = useLoaderData();
+    const { user } = useLoaderData();
     const navigate = useNavigate();
 
     return (
-        <Form method="post" id="contact-form">
+        <Form method="post" id="user-form">
             <p>
                 <span>Name</span>
                 <input
@@ -28,14 +28,14 @@ export default function EditUser() {
                     aria-label="First name"
                     type="text"
                     name="first"
-                    defaultValue={contact?.first}
+                    defaultValue={user?.first}
                 />
                 <input
                     placeholder="Last"
                     aria-label="Last name"
                     type="text"
                     name="last"
-                    defaultValue={contact?.last}
+                    defaultValue={user?.last}
                 />
             </p>
             <label>
@@ -44,7 +44,7 @@ export default function EditUser() {
                     type="text"
                     name="twitter"
                     placeholder="@jack"
-                    defaultValue={contact?.twitter}
+                    defaultValue={user?.twitter}
                 />
             </label>
             <label>
@@ -54,14 +54,14 @@ export default function EditUser() {
                     aria-label="Avatar URL"
                     type="text"
                     name="avatar"
-                    defaultValue={contact?.avatar}
+                    defaultValue={user?.avatar}
                 />
             </label>
             <label>
                 <span>Notes</span>
                 <textarea
                     name="notes"
-                    defaultValue={contact?.notes}
+                    defaultValue={user?.notes}
                     rows={6}
                 />
             </label>
