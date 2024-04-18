@@ -6,7 +6,8 @@ import {
 
 } from "react-router-dom";
 
-import { updateUser } from "../services/users-service";
+import { updateUser } from "../../services/users-service";
+import { deleteUser } from "firebase/auth";
 
 export async function action({ request, params }) {
     const formData = await request.formData();
@@ -39,12 +40,12 @@ export default function EditUser() {
                 />
             </p>
             <label>
-                <span>Twitter</span>
+                <span>Rut</span>
                 <input
                     type="text"
-                    name="twitter"
-                    placeholder="@jack"
-                    defaultValue={user?.twitter}
+                    name="rut"
+                    placeholder="19291044-7"
+                    defaultValue={user?.rut}
                 />
             </label>
             <label>

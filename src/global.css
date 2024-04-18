@@ -12,7 +12,7 @@
     --box-shadow-primary: 0 0 10px 0 rgba(0, 123, 255, 0.5);
     --box-shadow-secondary: 0 0 10px 0 rgba(108, 117, 125, 0.5);
     --box-shadow-success: 0 0 10px 0 rgba(40, 167, 69, 0.5);
-    --box-shadow-danger: 0 0 10px 0 rgba(220, 53, 69, 0.5);
+    --box-shadow-danger: 0 0 10px 5px rgba(220, 53, 69, 0.67);
     --box-shadow-warning: 0 0 10px 0 rgba(255, 193, 7, 0.5);
     --box-shadow-info: 0 0 10px 0 rgba(23, 162, 184, 0.5);
     --box-shadow-light: 0 0 10px 0 rgba(248, 249, 250, 0.5);
@@ -21,7 +21,7 @@
     --box-shadow-primary-hover: 0 0 10px 0 rgba(0, 123, 255, 0.8);
     --box-shadow-secondary-hover: 0 0 10px 0 rgba(108, 117, 125, 0.8);
     --box-shadow-success-hover: 0 0 10px 0 rgba(40, 167, 69, 0.8);
-    --box-shadow-danger-hover: 0 0 10px 0 rgba(220, 53, 69, 0.8);
+    --box-shadow-danger-hover: 0 0 10px 0 rgb(220, 53, 70);
     --box-shadow-warning-hover: 0 0 10px 0 rgba(255, 193, 7, 0.8);
     --box-shadow-info-hover: 0 0 10px 0 rgba(23, 162, 184, 0.8);
     --box-shadow-light-hover: 0 0 10px 0 rgba(248, 249, 250, 0.8);
@@ -202,9 +202,32 @@
     margin: 0;
 }
 
+/* margen auto */
+.m-auto {
+    margin: auto;
+}
+
+
+
 /* margen top */
 .mt-0 {
     margin-top: 0;
+}
+
+.m-xs {
+    margin: 0.125rem;
+}
+
+.m-sm {
+    margin: 0.25rem;
+}
+
+.m-md {
+    margin: 0.5rem;
+}
+
+.m-lg {
+    margin: 1rem;
 }
 
 .mt-sm {
@@ -561,6 +584,12 @@
     top: 0;
 }
 
+.abs-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .top-50 {
     top: 50%;
 }
@@ -598,6 +627,14 @@
 
 .bottom-right {
     bottom: 0;
+    right: 0;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
     right: 0;
 }
 
@@ -664,7 +701,74 @@
 }
 
 /* borderBox es un selector hecho para un div para que su hijo quede envuelto en un contenedor con sombreado y blur  */
-.borderBox {
+.bshadow.primary {
+    box-shadow: var(--box-shadow-primary);
+}
+
+.bshadow.secondary {
+    box-shadow: var(--box-shadow-secondary);
+}
+
+.bshadow.success {
+    box-shadow: var(--box-shadow-success);
+}
+
+.bshadow.danger {
+    box-shadow: var(--box-shadow-danger);
+}
+
+.bshadow.warning {
+    box-shadow: var(--box-shadow-warning);
+}
+
+.bshadow.info {
     box-shadow: var(--box-shadow-info);
-    padding: 1rem;
+}
+
+.bshadow.light {
+    box-shadow: var(--box-shadow-light);
+}
+
+.bshadow.dark {
+    box-shadow: var(--box-shadow-dark);
+}
+
+.bshadow.border {
+    box-shadow: var(--box-shadow-border);
+}
+
+.bshadow.primary-hover:hover {
+    box-shadow: var(--box-shadow-primary-hover);
+}
+
+.bshadow.secondary-hover:hover {
+    box-shadow: var(--box-shadow-secondary-hover);
+}
+
+.bshadow.success-hover:hover {
+    box-shadow: var(--box-shadow-success-hover);
+}
+
+.bshadow.danger-hover:hover {
+    box-shadow: var(--box-shadow-danger-hover);
+}
+
+.bshadow.warning-hover:hover {
+    box-shadow: var(--box-shadow-warning-hover);
+}
+
+.bshadow.info-hover:hover {
+    box-shadow: var(--box-shadow-info-hover);
+}
+
+.bshadow.light-hover:hover {
+    box-shadow: var(--box-shadow-light-hover);
+}
+
+.bshadow.dark-hover:hover {
+    box-shadow: var(--box-shadow-dark-hover);
+}
+
+.bshadow.border-hover:hover {
+    box-shadow: var(--box-shadow-border-hover);
 }

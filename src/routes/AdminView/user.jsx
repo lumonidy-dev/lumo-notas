@@ -3,8 +3,8 @@ import {
     useLoaderData,
     useFetcher,
 } from "react-router-dom";
-import { getUser, updateUser } from "../services/users-service";
-import GradesDashboard from "../components/Dashboard/GradesDashboard";
+import { getUser, updateUser } from "../../services/users-service";
+import GradesDashboard from '../../components/Dashboard/GradesDashboard';
 
 
 export async function loader({ params }) {
@@ -48,14 +48,10 @@ export default function User() {
                         <Favorite user={user} />
                     </h1>
 
-                    {user.twitter && (
+                    {user.rut && (
                         <p>
-                            <a
-                                target="_blank"
-                                href={`https://twitter.com/${user.twitter}`}
-                            >
-                                {user.twitter}
-                            </a>
+                            {user.rut}
+
                         </p>
                     )}
 

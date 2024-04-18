@@ -1,0 +1,28 @@
+/* Root.css */
+
+
+.error-alert {
+    background-color: #ffcccc;
+    border: 1px solid #ff9999;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.login-form-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.logout-button {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #ff4747;
+}

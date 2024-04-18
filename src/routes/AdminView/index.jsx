@@ -1,6 +1,6 @@
 export default function Index() {
     return (
-        <p id="zero-state">
+        <p className=" h-100 w-100 d-flex flex-col justify-content-center" id="zero-state" >
             This is a demo for React Router.
             <br />
             Check out{" "}
@@ -9,5 +9,6 @@ export default function Index() {
             </a>
             .
         </p>
+
     );
 }

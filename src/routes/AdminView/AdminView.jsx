@@ -8,7 +8,7 @@ import {
     useSubmit,
 } from "react-router-dom";
 import { useEffect } from "react";
-import { getUsers, createUser } from "../services/users-service";
+import { getUsers, createUser } from "../../services/users-service";
 
 export async function loader({ request }) {
     const url = new URL(request.url);
@@ -22,7 +22,7 @@ export async function action() {
     return redirect(`/users/${user.id}/edit`);
 }
 
-export default function Root() {
+export default function AdminView() {
     const { users, q } = useLoaderData();
     const navigation = useNavigation();
     const isSubmitting = navigation.state === "submitting";
@@ -38,7 +38,7 @@ export default function Root() {
         document.getElementById("q").value = q;
     }, [q]);
     return (
-        <>
+        <div className="d-flex w-100">
             <div id="sidebar">
                 <h1>Lumo Notas</h1>
                 <div>
@@ -109,13 +109,10 @@ export default function Root() {
             </div>
             <div
                 id="detail"
-                className={
-                    navigation.state === "loading" ? "loading" : ""
-                }
-
+                className={`${navigation.state === "loading" ? "loading" : ""} `}
             >
                 <Outlet />
             </div>
-        </>
+        </div>
     );
 }

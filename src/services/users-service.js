@@ -75,6 +75,7 @@ export async function updateUser(id, updates) {
 
 export async function deleteUser(id) {
     try {
+        console.log('Deleting user with ID:', id);
         await deleteDoc(doc(usersCollection, id)); // Deleting a user document
         return true;
     } catch (error) {
