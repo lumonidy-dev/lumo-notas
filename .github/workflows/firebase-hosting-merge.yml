@@ -10,13 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set VITE_FIREBASE_CONFIG environment variable
-        run: |
-          echo "::set-output name=VITE_FIREBASE_CONFIG::${{ secrets.VITE_FIREBASE_CONFIG }}"
-        id: set-config
-      
-      - name: Add to GitHub environment
-        run: echo "${{ steps.set-config.outputs.VITE_FIREBASE_CONFIG }}" >> $GITHUB_ENV
+      - name: Write VITE_FIREBASE_CONFIG to env file
+        run: echo "${{ secrets.VITE_FIREBASE_CONFIG }}" >.env
+        
 
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
