@@ -24,8 +24,6 @@ dist-ssr
 *.sw?
 
 # Firebase files
-firebase.json
-.firebaserc
 *.cache
 
 # Env files
