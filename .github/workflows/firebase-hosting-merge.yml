@@ -10,13 +10,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set VITE_FIREBASE_CONFIG environment variable
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "credentials.json"
+          json: ${{ secrets.VITE_FIREBASE_CONFIG }}
+
+      - name: Export credentials as env var
         run: |
-          echo "VITE_FIREBASE_CONFIG<<EOF" >> $GITHUB_ENV
-          echo "${{ secrets.VITE_FIREBASE_CONFIG }}" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV        
+          echo "VITE_FIREBASE_CONFIG=$(cat credentials.json)" >> $GITHUB_ENV
 
       - run: npm ci && npm run build
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
