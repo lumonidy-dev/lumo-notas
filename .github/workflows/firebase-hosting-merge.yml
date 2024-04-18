@@ -16,11 +16,6 @@ jobs:
         with:
           name: "credentials.json"
           json: ${{ secrets.VITE_FIREBASE_CONFIG }}
-
-      - name: Export credentials as env var
-        run: |
-          echo "VITE_FIREBASE_CONFIG=$(cat credentials.json)" >> $GITHUB_ENV
-
       - run: npm ci && npm run build
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
