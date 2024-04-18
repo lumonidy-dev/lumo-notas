@@ -12,16 +12,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create firebaseConfig.js
-        run: |
-          echo "$FIREBASE_CONFIG_JS" > src/firebaseConfig.js
-        working-directory: ${{ github.workspace }}
-        env:
-          FIREBASE_CONFIG_JS: ${{ secrets.FIREBASE_CONFIG_JS }}
+      - name: Set FIREBASE_CONFIG environment variable
+        run: echo "export FIREBASE_CONFIG=${{ secrets.FIREBASE_CONFIG }}" >> $GITHUB_ENV
 
   build_and_deploy:
-    runs-on: ubuntu-latest
     needs: create_firebase_config
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
