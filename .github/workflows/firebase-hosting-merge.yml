@@ -7,14 +7,25 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
-  build_and_deploy:
+  create_firebase_config_js:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: npm ci && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LUMO_NOTAS }}'
-          channelId: live
-          projectId: lumo-notas
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create firebaseConfig.js
+        run: echo "$FIREBASE_CONFIG_JS" > src/firebaseConfig.js
+        env:
+          FIREBASE_CONFIG_JS: ${{ secrets.FIREBASE_CONFIG_JS }}
+      build_and_deploy:
+        needs: create_firebase_config_js
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+          - run: npm ci && npm run build
+          - uses: FirebaseExtended/action-hosting-deploy@v0
+            with:
+              repoToken: '${{ secrets.GITHUB_TOKEN }}'
+              firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LUMO_NOTAS }}'
+              channelId: live
+              projectId: lumo-notas
