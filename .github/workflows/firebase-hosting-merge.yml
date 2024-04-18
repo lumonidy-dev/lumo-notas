@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting on merge
+name: Create and Deploy Firebase Config
 
 'on':
   push:
@@ -6,27 +6,33 @@ name: Deploy to Firebase Hosting on merge
       - main
 
 jobs:
-  build_and_deploy:
+  create_firebase_config:
     runs-on: ubuntu-latest
     steps:
-      - name: Print current directory
-        run: pwd
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: List files in current directory
-        run: ls
+      - name: Set FIREBASE_CONFIG environment variable
+        run: |
+          echo "FIREBASE_CONFIG<<EOF" >> $GITHUB_ENV
+          echo "${{ secrets.FIREBASE_CONFIG }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-      - name: Print FIREBASE_CONFIG_JS
-        run: echo "$FIREBASE_CONFIG_JS"
-        
-      - name: Create firebaseConfig.js
-        run: echo "$FIREBASE_CONFIG_JS" > src/firebaseConfig.js
-        env:
-          FIREBASE_CONFIG_JS: ${{ secrets.FIREBASE_CONFIG_JS }}
-      - uses: actions/checkout@v4
-      - run: npm ci && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+  build_and_deploy:
+    needs: create_firebase_config
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install and Build
+        run: npm ci && npm run build
+        working-directory: ${{ github.workspace }}
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LUMO_NOTAS }}'
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_LUMO_NOTAS }}
           channelId: live
           projectId: lumo-notas
