@@ -9,19 +9,11 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Print current directory
-        run: pwd
-
-      - name: List files in current directory
-        run: ls
-
-      - name: Print FIREBASE_CONFIG_JS
-        run: echo "$FIREBASE_CONFIG_JS"
-        
       - name: Create firebaseConfig.js
-        run: echo "$FIREBASE_CONFIG_JS" > src/firebaseConfig.js
-        env:
-          FIREBASE_CONFIG_JS: ${{ secrets.FIREBASE_CONFIG_JS }}
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .src/firebaseConfig.js
+          working-directory: ${{ github.workspace }}
+        
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
