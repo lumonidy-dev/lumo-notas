@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Create firebaseConfig.js
         run: |
-          echo "${{ secrets.ENV_FILE }}" > .src/firebaseConfig.js
+          echo "${{ secrets.ENV_FILE }}" > /src/firebaseConfig.js
           working-directory: ${{ github.workspace }}
         
       - uses: actions/checkout@v4
