@@ -10,10 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set FIREBASE_CONFIG environment variable
+      - name: Set VITE_FIREBASE_CONFIG environment variable
         run: |
-          echo 'FIREBASE_CONFIG<<EOF' >> $GITHUB_ENV
-          echo '${{ secrets.FIREBASE_CONFIG }}' >> $GITHUB_ENV
+          echo 'VITE_FIREBASE_CONFIG<<EOF' >> $GITHUB_ENV
+          echo '${{ secrets.VITE_FIREBASE_CONFIG }}' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
       - run: npm ci && npm run build
