@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set VITE_FIREBASE_CONFIG environment variable :duck:
+      - name: Set VITE_FIREBASE_CONFIG environment variable
         run: echo "VITE_FIREBASE_CONFIG=${{ secrets.VITE_FIREBASE_CONFIG }}" >> $GITHUB_ENV
         
 
