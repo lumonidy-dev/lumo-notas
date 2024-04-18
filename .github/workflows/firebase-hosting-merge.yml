@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Write VITE_FIREBASE_CONFIG to env file
-        run: echo "${{ secrets.VITE_FIREBASE_CONFIG }}" >.env
+      - name: Set VITE_FIREBASE_CONFIG environment variable :duck:
+        run: echo "VITE_FIREBASE_CONFIG=${{ secrets.VITE_FIREBASE_CONFIG }}" >> $GITHUB_ENV
         
 
       - run: npm ci && npm run build
