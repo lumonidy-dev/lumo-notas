@@ -21,6 +21,7 @@ const LoginForm = ({ onLogin, onError }) => {
 
   return (
     <form className={`bshadow ${colorShadow()} border-radius-md d-flex flex-col p-lg`} onSubmit={handleSubmit}>
+      <h1 className='text-center'>Probando Workflow...</h1>
       <label className='mt-lg d-flex flex-col'>
         Email:
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
